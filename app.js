@@ -1,16 +1,15 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require('./services/express');
 const morgan  = require('morgan');
 const credentials = require('./config/credentials');
+const routes = require('./api');
+const http = require('http');
 
-const app = express();
+const app = express(credentials.apiRoot, routes);
 
+const server = http.createServer(app);
 
-app.use(morgan('dev'));
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-
-app.listen(credentials.PORT, ()=> {
-    console.log(`Server started at ${credentials.PORT}`)
+setImmediate(() => {
+    server.listen(credentials.PORT, credentials.ip, () => {
+        console.log('Express server listening on http://%s:%d', credentials.ip, credentials.PORT);
+    })
 })
