@@ -1,4 +1,6 @@
 module.exports = {
-    PORT: 3000,
-    MONGO_URI: process.env.MONGO_URI
+    port: process.env.port,
+    apiRoot: process.env.apiRoot,
+    ip: process.env.ip,
+    mongoURI: process.env.mongoURI
 };
